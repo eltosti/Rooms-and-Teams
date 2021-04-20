@@ -1,0 +1,84 @@
+{
+  "name": "create-svelte-electron-app",
+  "version": "0.1.0",
+  "description": "the jajas ",
+  "main": "main.js",
+  "author": "eltsti",
+  "license": "MIT",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/soulehshaikh99/create-svelte-electron-app"
+  },
+  "bugs": {
+    "url": "https://github.com/soulehshaikh99/create-svelte-electron-app/issues"
+  },
+  "build": {
+    "icon": "public/favicon.png",
+    "productName": "Rooms and Temas for Pathfinder",
+    "files": [
+      "public/**/*",
+      "main.js"
+    ],
+    "win": {},
+    "linux": {},
+    "mac": {}
+  },
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "start": "sirv public",
+    "electron": "wait-on http://localhost:5000 && electron .",
+    "electron-dev": "concurrently \"yarn run dev\" \"yarn run electron\"",
+    "preelectron-pack": "yarn run build",
+    "electron-pack": "electron-builder"
+  },
+  "dependencies": {
+    "@mdi/js": "^5.9.55",
+    "electron-serve": "^1.0.0",
+    "svelte-color-picker": "^1.0.7",
+    "svelte-colorpick": "^0.1.7",
+    "uuidv4": "^6.2.7"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^14.0.0",
+    "@rollup/plugin-node-resolve": "^8.0.0",
+    "concurrently": "^5.3.0",
+    "electron": "^9.4.4",
+    "electron-builder": "^22.8.0",
+    "postcss": "^8.2.10",
+    "rollup": "^2.3.4",
+    "rollup-plugin-livereload": "^1.0.0",
+    "rollup-plugin-svelte": "^5.0.3",
+    "rollup-plugin-terser": "^6.0.0",
+    "sass": "^1.32.8",
+    "sirv-cli": "^1.0.0",
+    "svelte": "^3.0.0",
+    "svelte-materialify": "^0.3.10",
+    "svelte-picker": "^0.1.0",
+    "svelte-preprocess": "^4.7.0",
+    "wait-on": "^5.3.0"
+  },
+  "keywords": [
+    "cross-platform",
+    "native-app",
+    "installed-app",
+    "desktop-applications",
+    "windows",
+    "linux",
+    "macos",
+    "html",
+    "css",
+    "javascript",
+    "front-end",
+    "compiler",
+    "svelte",
+    "rollup",
+    "electron",
+    "electron-builder",
+    "electron-serve",
+    "concurrently",
+    "wait-on",
+    "webapp"
+  ]
+}
