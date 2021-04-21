@@ -1,6 +1,6 @@
 # Rooms And Teams for Pathfinder
 
-![Rooms and Teams](/assets/U6Vt15L.png)
+![Rooms and Teams](https://raw.githubusercontent.com/eltosti/Rooms-and-Teams/master/.github/images/wml0ZVj.png)
 
 
 TO DO:
