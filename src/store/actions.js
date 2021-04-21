@@ -21,6 +21,12 @@ export const saveChange = () => {
   ipcRenderer.sendSync('save-file', JSON.stringify(data))
 }
 
+const random_hex_color_code = () => {
+  let n = (Math.random() * 0xfffff * 1000000).toString(16);
+  return '#' + n.slice(0, 6);
+};
+
+
 export const addRoomToSave = (room) => {
   let ss;
   let unsub = save.subscribe(b => ss = b)
@@ -29,7 +35,7 @@ export const addRoomToSave = (room) => {
   let newRoom = {...room}
   newRoom["id"] = uuid()
   newRoom["amount"] = 1
-  newRoom["color"] = "#ff0000"
+  newRoom["color"] = random_hex_color_code()
   ss[ss["activeBuilding"]].rooms.push(newRoom)
   save.set(ss)
   saveChange()

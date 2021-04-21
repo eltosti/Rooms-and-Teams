@@ -24,6 +24,8 @@
   let colorTimeOut = window.setTimeout(() => {
   }, 1000)
 
+
+
   export let handleColorChange = (newColor) => {
     window.clearTimeout(colorTimeOut)
     colorTimeOut = window.setTimeout(() => {
@@ -32,7 +34,10 @@
     buildingColor = Color.rgb(newColor.detail).toHex();
   }
 
-  const toggleExpanded = () => expanded = !expanded
+  const toggleExpanded = (e) => {
+    (e.shiftKey) ? deleteSelf() : expanded = !expanded;
+
+  }
   const add = () => saveAmountChange()
   const rest = () => count = Math.max(0, count - 1)
   let circleSize = 1.4
@@ -42,27 +47,23 @@
     deleteItem(item.id)
   };
 
-  const random_hex_color_code = () => {
-    let n = (Math.random() * 0xfffff * 1000000).toString(16);
-    return '#' + n.slice(0, 6);
-  };
 
   export let item
   let buildingColor
   $: buildingColor = item ? item.color : "red"
-  let count =  (item) ? item.amount : 0;
+  let count =  (item) ? item.amount : 1;
   const addd = () => {
     count++
     saveAmountChange(item.id, count)
   }
   const restd = () => {
-    count = Math.max(0, count - 1)
+    count = Math.max(1, count - 1)
     saveAmountChange(item.id, count)
   }
 </script>
 
 <div>
-    <div on:click={toggleExpanded} class="{expanded ? 'roomCardHeader selected ' : 'roomCardHeader '}">
+    <div on:click={(e)=>{(e.shiftKey) ? deleteSelf() : expanded = !expanded;}} class="{expanded ? 'roomCardHeader selected ' : 'roomCardHeader '}">
         <div style="display: flex; align-items: baseline">
             {#if counter}
                 <div class="RoomCardColor" on:click|stopPropagation={openColorPicker}

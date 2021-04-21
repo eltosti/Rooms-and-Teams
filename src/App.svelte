@@ -8,6 +8,7 @@
   import {newTab} from "./store/store";
   import {saveChange} from "./store/actions";
   import {mdiPlus} from "@mdi/js"
+  import InfoDisplay from "./components/InfoDisplay.svelte";
 
   const {ipcRenderer} = window.require("electron")
   let tabNames = $save.buildings
@@ -47,7 +48,14 @@
         cellMap: [],
         GridSize: $newTab.mapSize,
         CellSize: $newTab.cellSize,
-        existingCells: []
+        existingCells: [],
+        separation: {
+          gold: 0,
+          goods: 0,
+          influence: 0,
+          magic: 0,
+          labor: 0
+        }
       }
       for (let i = 0; i < $newTab.mapSize.y; i++) {
         newtab.existingCells.push([])
@@ -83,11 +91,12 @@
     delete $save[t]
     let a = $save.buildings.indexOf(t)
     $save.buildings.splice(a, a)
-    $save.buildings = $save.buildings
+    $save.buildings = $save.buildings;
     if ($save["activeBuilding"] === t) {
       $save["activeBuilding"] = $save.buildings[0] ? $save.buildings[0] : ""
     }
     $save = $save;
+    saveChange()
   }
 
 
@@ -121,7 +130,7 @@
                 {#if $save[$save["activeBuilding"]]}
                     <TabPanel>
                         <div class="building-panel">
-                            <div class="small">
+                            <div class="small list">
                                 <BuildingList items={$rooms}/>
                             </div>
                             <div class="map">
@@ -129,7 +138,13 @@
                                              size={$save[$save["activeBuilding"]].GridSize}/>
                             </div>
                             <div class="small">
-                                <BuildingList counter={true} bind:items={$save[$save["activeBuilding"]].rooms}/>
+                                <div style="max-height: 40vh;overflow: auto;min-height: 40vh">
+                                    <BuildingList counter={true} bind:items={$save[$save["activeBuilding"]].rooms}/>
+                                </div>
+                                <Divider></Divider>
+                                <div style="max-height: 53vh;" class="list">
+                                    <InfoDisplay/>
+                                </div>
                             </div>
                         </div>
                     </TabPanel>
@@ -177,7 +192,7 @@
         width: 25vw;
         height: 100%;
         max-height: 92vh;
-        overflow: scroll;
+        overflow: hidden;
     }
 
     .small::-webkit-scrollbar {
@@ -191,6 +206,9 @@
     .building-panel {
         display: flex;
         height: 100%;
+        overflow: auto;
+    }
+    .list{
         overflow: auto;
     }
 </style>

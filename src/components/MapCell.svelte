@@ -17,7 +17,6 @@
   let element;
   onMount(() => {
     element.onmouseenter = (ev) => {
-      //console.log($save[$save["activeBuilding"]].existingCells.toString())
       if ($isMouseDownRight) {
         $cellColor = getColor();
         updateCell(cellId, getColor(), true)
