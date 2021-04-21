@@ -1,17 +1,17 @@
 {
   "name": "create-svelte-electron-app",
-  "version": "0.1.0",
-  "description": "the jajas ",
+  "version": "0.1.1",
+  "description": "And app for making and planing buildings in PAthfinder",
   "main": "main.js",
-  "author": "eltsti",
+  "author": "eltosti",
   "license": "MIT",
   "private": false,
   "repository": {
     "type": "git",
-    "url": "https://github.com/soulehshaikh99/create-svelte-electron-app"
+    "url": "https://github.com/eltosti/Rooms-and-Teams"
   },
   "bugs": {
-    "url": "https://github.com/soulehshaikh99/create-svelte-electron-app/issues"
+    "url": "https://github.com/eltosti/Rooms-and-Teams/issues"
   },
   "build": {
     "icon": "public/favicon.png",
