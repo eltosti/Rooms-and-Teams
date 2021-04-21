@@ -1,13 +1,12 @@
 <script>
-  import {info,save} from "../store/store";
+  import {info, save} from "../store/store";
   import {saveChange} from "../store/actions";
 
   let GP = $save[$save["activeBuilding"]].separation.gold ?? 0
-  let LB = $save[$save["activeBuilding"]].separation.labor?? 0
-  let GD = $save[$save["activeBuilding"]].separation.goods?? 0
-  let IF = $save[$save["activeBuilding"]].separation.influence?? 0
+  let LB = $save[$save["activeBuilding"]].separation.labor ?? 0
+  let GD = $save[$save["activeBuilding"]].separation.goods ?? 0
+  let IF = $save[$save["activeBuilding"]].separation.influence ?? 0
   let MG = $save[$save["activeBuilding"]].separation.magic
-
 
 
   let limit
@@ -21,15 +20,14 @@
     let influence = (IF > 0) ? `+${IF} Influence` : ""
     let magic = (MG > 0) ? `+${MG} Magic` : ""
     let gp = (GP > 0) ? `+${GP} Gp` : ""
-    let options = [goods, labor, influence, magic, gp]
     let optionFinal = []
-    options = options.map(a => {
+    let a =   [goods, labor, influence, magic, gp].map(a => {
       if (a !== "") optionFinal.push(a)
     })
     return optionFinal.join(", ")
   }
 
-  const handleChange = ()=>{
+  const handleChange = () => {
     e = earnings()
     $save[$save["activeBuilding"]].separation.gold = GP
     $save[$save["activeBuilding"]].separation.labor = LB
@@ -55,23 +53,28 @@
             </tr>
             <tr>
                 <td><label for="info-GP">Gp:</label></td>
-                <td><input on:change={handleChange} id="info-GP" bind:value={GP} type="number" min="0" max={$info.TEGP}>/{$info.EGP}</td>
+                <td><input on:change={handleChange} id="info-GP" bind:value={GP} type="number" min="0" max={$info.TEGP}>/{$info.EGP}
+                </td>
             </tr>
             <tr>
                 <td><label for="info-LB">Labor:</label></td>
-                <td><input on:change={handleChange} id="info-LB" type="number" bind:value={LB} min="0" max={$info.TELB}>/{$info.ELB}</td>
+                <td><input on:change={handleChange} id="info-LB" type="number" bind:value={LB} min="0" max={$info.TELB}>/{$info.ELB}
+                </td>
             </tr>
             <tr>
                 <td><label for="info-MG">Magic:</label></td>
-                <td><input on:change={handleChange} id="info-MG" type="number" bind:value={MG} min="0" max={$info.TEMG}>/{$info.EMG}</td>
+                <td><input on:change={handleChange} id="info-MG" type="number" bind:value={MG} min="0" max={$info.TEMG}>/{$info.EMG}
+                </td>
             </tr>
             <tr>
                 <td><label for="info-IF">Influence:</label></td>
-                <td><input on:change={handleChange} id="info-IF" type="number" min="0" bind:value={IF} max={$info.TEIF}>/{$info.EIF}</td>
+                <td><input on:change={handleChange} id="info-IF" type="number" min="0" bind:value={IF} max={$info.TEIF}>/{$info.EIF}
+                </td>
             </tr>
             <tr>
                 <td><label for="info-GD">Goods:</label></td>
-                <td><input on:change={handleChange} id="info-GD" type="number" min="0" bind:value={GD} max={$info.TEGD}>/{$info.EGD}</td>
+                <td><input on:change={handleChange} id="info-GD" type="number" min="0" bind:value={GD} max={$info.TEGD}>/{$info.EGD}
+                </td>
             </tr>
         </table>
     </div>

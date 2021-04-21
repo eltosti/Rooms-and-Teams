@@ -74,8 +74,9 @@
         mapSize: {x: 30, y: 30}
       }
       saveChange()
+      closeDialaog()
     } else {
-      alert(a.message)
+      errors = a.message
     }
   }
 
@@ -86,6 +87,7 @@
       mapSize: {x: 30, y: 30}
     }
     openNewTab = false;
+    errors = ""
   }
   const deleteTab = (t) => {
     delete $save[t]
@@ -99,6 +101,7 @@
     saveChange()
   }
 
+  let errors = ""
 
   export let appName
 </script>
@@ -112,7 +115,7 @@
                     {#each tabNames as t,i}
                     <span on:click={(e)=>{
                       if (!e.shiftKey){
-                        $save["activeBuilding"] = t; $selectedColor="#000000"; saveChange()
+                        $save["activeBuilding"] = t; $selectedColor="#000000"; $save=$save;  saveChange()
                       }else{
                         deleteTab(t)
                       }
@@ -170,9 +173,14 @@
                         <input id="tabMapY" type="number" bind:value={$newTab.mapSize.y} style="width: 4.5rem" min="0">
                     </div>
                     <div></div>
-                    <div style="display: flex; justify-content: flex-end">
-                        <Button class="red white-text mr-1" on:click={()=>{closeDialaog()}}>Cancel</Button>
-                        <Button on:click={()=>{createBuilding();closeDialaog()}}>Create</Button>
+                    <div style="display: flex; justify-content: space-between">
+                        <div style="color: red">
+                            <b>{errors}</b>
+                        </div>
+                        <div>
+                            <Button class="red white-text mr-1" on:click={()=>{closeDialaog()}}>Cancel</Button>
+                            <Button on:click={()=>{createBuilding()}}>Create</Button>
+                        </div>
                     </div>
                 </form>
             </div>
