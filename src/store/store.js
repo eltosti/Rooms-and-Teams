@@ -33,25 +33,29 @@ export const info = derived(save, $save => {
   let TEIF = 0
   let TEGP = 0
   let tt= 0
-  $save[$save["activeBuilding"]].rooms.forEach((i) => {
-    totalGD += i["Goods Cost"] * i.amount
-    totalLB += i["Labor Cost"] * i.amount
-    totalMG += i["Magic Cost"] * i.amount
-    totalIF += i["Influence Cost"] * i.amount
-    totalGP += i["Total Cost"] * i.amount
-    EGD += i.Goods * i.amount * i["Check Bonus"]
-    ELB += i.Labor * i.amount * i["Check Bonus"]
-    EMG += i.Magic * i.amount * i["Check Bonus"]
-    EIF += i.Influence * i.amount * i["Check Bonus"]
-    EGP += i.gp * i.amount * i["Check Bonus"]
-    ECP += i.Capital * i.amount * i["Check Bonus"]
-    TEGD += i.Goods * i.amount * i["Check Bonus"] + i.amount * i.Capital * i["Check Bonus"]
-    TELB += i.Labor * i.amount * i["Check Bonus"] + i.amount * i.Capital * i["Check Bonus"]
-    TEMG += i.Magic * i.amount * i["Check Bonus"] + i.amount * i.Capital * i["Check Bonus"]
-    TEIF += i.Influence * i.amount * i["Check Bonus"] + i.amount * i.Capital * i["Check Bonus"]
-    TEGP += i.gp * i.amount * i["Check Bonus"] + i.amount * i.Capital * i["Check Bonus"]
-    tt += i.amount * i["Check Bonus"]
-  })
+
+
+  if ($save[$save["activeBuilding"]]){
+    $save[$save["activeBuilding"]].rooms.forEach((i) => {
+      totalGD += i["Goods Cost"] * i.amount
+      totalLB += i["Labor Cost"] * i.amount
+      totalMG += i["Magic Cost"] * i.amount
+      totalIF += i["Influence Cost"] * i.amount
+      totalGP += i["Total Cost"] * i.amount
+      EGD += i.Goods * i.amount * i["Check Bonus"]
+      ELB += i.Labor * i.amount * i["Check Bonus"]
+      EMG += i.Magic * i.amount * i["Check Bonus"]
+      EIF += i.Influence * i.amount * i["Check Bonus"]
+      EGP += i.gp * i.amount * i["Check Bonus"]
+      ECP += i.Capital * i.amount * i["Check Bonus"]
+      TEGD += i.Goods * i.amount * i["Check Bonus"] + i.amount * i.Capital * i["Check Bonus"]
+      TELB += i.Labor * i.amount * i["Check Bonus"] + i.amount * i.Capital * i["Check Bonus"]
+      TEMG += i.Magic * i.amount * i["Check Bonus"] + i.amount * i.Capital * i["Check Bonus"]
+      TEIF += i.Influence * i.amount * i["Check Bonus"] + i.amount * i.Capital * i["Check Bonus"]
+      TEGP += i.gp * i.amount * i["Check Bonus"] + i.amount * i.Capital * i["Check Bonus"]
+      tt += i.amount * i["Check Bonus"]
+    })
+  }
   let fictionalRoom = {
     "Goods Cost": totalGD,
     "Labor Cost": totalLB,

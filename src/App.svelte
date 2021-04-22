@@ -11,7 +11,7 @@
   import InfoDisplay from "./components/InfoDisplay.svelte";
 
   const {ipcRenderer} = window.require("electron")
-  let tabNames = $save.buildings
+  let tabNames
   $: tabNames = $save.buildings
   let theme = 'light'
   let openNewTab = false
@@ -40,7 +40,6 @@
 
   const createBuilding = () => {
     let a = validEntry()
-    console.log($newTab)
     if (a.success) {
       let newtab = {
         name: $newTab.name,
@@ -64,9 +63,8 @@
         }
       }
       $save[$newTab.name] = newtab
-      console.log($save)
       $save.buildings.push($newTab.name)
-
+      $save["activeBuilding"] = $newTab.name
       $save = $save
       $newTab = {
         name: "",
@@ -90,18 +88,39 @@
     errors = ""
   }
   const deleteTab = (t) => {
-    delete $save[t]
+
     let a = $save.buildings.indexOf(t)
-    $save.buildings.splice(a, a)
-    $save.buildings = $save.buildings;
-    if ($save["activeBuilding"] === t) {
-      $save["activeBuilding"] = $save.buildings[0] ? $save.buildings[0] : ""
+    let c = [...$save.buildings]
+    console.log(c)
+    c = c.filter(l => {
+      return l !== t
+    })
+    console.log(c);
+    let v = {...$save}
+    v.buildings = c;
+    if (v["activeBuilding"] === t) {
+      console.log(tabNames)
+      if (a === c.length && c.length !== 0) {
+        console.log("a")
+        v["activeBuilding"] = v.buildings[c.length - 1]
+      } else if (c.length === 0) {
+        console.log("c")
+        v["activeBuilding"] = ""
+      } else if (a === 0) {
+        console.log("b")
+        v["activeBuilding"] = v.buildings[0]
+      } else {
+        console.log("d")
+        v["activeBuilding"] = v.buildings[a - 1];
+      }
     }
-    $save = $save;
-    saveChange()
+    delete v[t]
+    $save = v
+    console.log($save)
+    saveChange();
   }
 
-  let errors = ""
+  let errors = "";
 
   export let appName
 </script>
@@ -129,8 +148,8 @@
             </div>
             <Divider/>
             <div class="mt-4"></div>
-            {#each tabNames as t,i}
-                {#if $save[$save["activeBuilding"]]}
+            {#if $save.buildings.length !== 0}
+                {#each tabNames as t,i}
                     <TabPanel>
                         <div class="building-panel">
                             <div class="small list">
@@ -151,8 +170,10 @@
                             </div>
                         </div>
                     </TabPanel>
-                {/if}
-            {/each}
+                {/each}
+            {:else}
+                <div></div>
+            {/if}
         </Tabs>
         <Dialog bind:active={openNewTab} persistent>
             <div class="pa-4 ">
@@ -209,6 +230,7 @@
 
     .map {
         width: 50vw;
+
     }
 
     .building-panel {
@@ -216,7 +238,8 @@
         height: 100%;
         overflow: auto;
     }
-    .list{
+
+    .list {
         overflow: auto;
     }
 </style>
