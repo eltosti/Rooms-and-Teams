@@ -1,6 +1,5 @@
 <script>
   import RoomCard from "./RoomCard.svelte";
-  import {save} from "../store/store";
   import {addRoomToSave} from "../store/actions";
   import {Divider}  from 'svelte-materialify'
     export let counter = false
